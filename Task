@@ -1,0 +1,93 @@
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class CustomerManagementApp {
+
+    // JavaBean: Customer class
+    public static class Customer implements Serializable {
+        private int id;
+        private double balance;
+        private String firstName;
+        private String lastName;
+
+        // No-argument constructor
+        public Customer() {}
+
+        // Parameterized constructor
+        public Customer(int id, double balance, String firstName, String lastName) {
+            this.id = id;
+            this.balance = balance;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        // Getters and setters
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(double balance) {
+            this.balance = balance;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        @Override
+        public String toString() {
+            return "Customer{" +
+                    "id=" + id +
+                    ", balance=" + balance +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    '}';
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        // Create a list of customers
+        List<Customer> customers = new ArrayList<>();
+
+        // Add sample customers
+        customers.add(new Customer(3, 1500.50, "Alice", "Smith"));
+        customers.add(new Customer(1, 2500.75, "Alice", "Johnson"));
+        customers.add(new Customer(2, 1200.00, "Bob", "Smith"));
+        customers.add(new Customer(4, 1800.25, "Alice", "Smith"));
+
+        System.out.println("Before Sorting:");
+        customers.forEach(System.out::println);
+
+        // Sort customers by First Name, Last Name, ID, and Balance
+        customers.sort(Comparator.comparing(Customer::getFirstName)
+                                  .thenComparing(Customer::getLastName)
+                                  .thenComparingInt(Customer::getId)
+                                  .thenComparingDouble(Customer::getBalance));
+
+        System.out.println("\nAfter Sorting:");
+        customers.forEach(System.out::println);
+    }
+}
